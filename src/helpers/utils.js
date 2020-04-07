@@ -3,10 +3,7 @@ import Big from 'big.js';
 
 export const infectionsByRequestedTime = (data, infected) => {
   let infections = null;
-  const {
-    timeToElapse,
-    periodType
-  } = data;
+  const { timeToElapse, periodType } = data;
 
   const period = Big(timeToElapse);
   let days;

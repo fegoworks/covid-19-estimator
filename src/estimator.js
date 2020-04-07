@@ -4,9 +4,7 @@ import infectionsByRequestedTime from './helpers/utils';
 const covid19ImpactEstimator = (data) => {
   const impact = {};
   const severeImpact = {};
-  let {
-    reportedCases
-  } = data;
+  let { reportedCases } = data;
 
   reportedCases = Big(reportedCases);
 
@@ -14,9 +12,15 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.currentlyInfected = reportedCases * Big(50);
 
   const impactCurrentlyInfected = Big(impact.currentlyInfected);
-  impact.infectionsByRequestedTime = infectionsByRequestedTime(data, impactCurrentlyInfected);
-  const severeImpactCurrentlyInfected = Big(severeImpact.currentlyInfected);
-  severeImpact.infectionsByRequestedTime = infectionsByRequestedTime(data, severeImpactCurrentlyInfected);
+  impact.infectionsByRequestedTime = infectionsByRequestedTime(
+    data,
+    impactCurrentlyInfected
+  );
+  const sICurrentlyInfected = Big(severeImpact.currentlyInfected);
+  severeImpact.infectionsByRequestedTime = infectionsByRequestedTime(
+    data,
+    sICurrentlyInfected
+  );
 
   return {
     data,
