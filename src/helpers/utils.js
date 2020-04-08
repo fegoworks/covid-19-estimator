@@ -14,7 +14,7 @@ export const infectionsByRequestedTime = (data, infected) => {
 
   if (periodType === 'days') {
     unitsPerPeriod = Math.round(period / 3);
-    infections = infected * 2 ** unitsPerPeriod;
+    infections = (infected * 2 ** unitsPerPeriod) / 2;
   } else if (periodType === 'weeks') {
     days = period * 7;
     unitsPerPeriod = Math.round(days / 3);
