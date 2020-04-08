@@ -27,11 +27,11 @@ export const infectionsByRequestedTime = (data, infected) => {
   return infections;
 };
 
-export const severeCasesByRequestedTime = ((time) => Math.round(time * 0.15));
+export const severeCasesByRequestedTime = (time) => Math.round(time * 0.15);
 
-export const casesForICUByRequestedTime = ((time) => time * 0.05);
+export const casesForICUByRequestedTime = (time) => time * 0.05;
 
-export const casesForVentilatorsByRequestedTime = ((time) => time * 0.02);
+export const casesForVentilatorsByRequestedTime = (time) => time * 0.02;
 
 export const hospitalBedsByRequestedTime = (data, cases) => {
   const bedsAvailable = data.totalHospitalBeds * 0.35;
