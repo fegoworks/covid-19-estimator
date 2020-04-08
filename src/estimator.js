@@ -1,10 +1,14 @@
 import Big from 'big.js';
-import infectionsByRequestedTime from './helpers/utils';
+import {
+  infectionsByRequestedTime
+} from './helpers/utils';
 
 const covid19ImpactEstimator = (data) => {
   const impact = {};
   const severeImpact = {};
-  let { reportedCases } = data;
+  let {
+    reportedCases
+  } = data;
 
   reportedCases = Big(reportedCases);
 
