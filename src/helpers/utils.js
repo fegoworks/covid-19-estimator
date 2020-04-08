@@ -29,7 +29,36 @@ export const infectionsByRequestedTime = (data, infected) => {
 
 export const severeCasesByRequestedTime = ((time) => Math.round(time * 0.15));
 
+export const casesForICUByRequestedTime = ((time) => time * 0.05);
+
+export const casesForVentilatorsByRequestedTime = ((time) => time * 0.02);
+
 export const hospitalBedsByRequestedTime = (data, cases) => {
   const bedsAvailable = data.totalHospitalBeds * 0.35;
   return bedsAvailable - cases;
+};
+
+export const dollarsInFlight = (data, infections) => {
+  let totalDollars;
+  let timeInDays;
+  const {
+    periodType,
+    timeToElapse
+  } = data;
+  const {
+    avgDailyIncomePopulation,
+    avgDailyIncomeInUSD
+  } = data.region;
+
+  if (periodType === 'weeks') {
+    timeInDays = timeToElapse * 7;
+    totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
+  } else if (periodType === 'months') {
+    timeInDays = timeToElapse * 30;
+    totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
+  } else {
+    timeInDays = timeToElapse;
+    totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
+  }
+  return totalDollars;
 };
