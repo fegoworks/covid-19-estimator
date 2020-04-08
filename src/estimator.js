@@ -2,7 +2,10 @@ import Big from 'big.js';
 import {
   infectionsByRequestedTime,
   severeCasesByRequestedTime,
-  hospitalBedsByRequestedTime
+  hospitalBedsByRequestedTime,
+  casesForICUByRequestedTime,
+  casesForVentilatorsByRequestedTime,
+  dollarsInFlight
 } from './helpers/utils';
 
 const covid19ImpactEstimator = (data) => {
@@ -29,13 +32,27 @@ const covid19ImpactEstimator = (data) => {
   );
 
   impact.severeCasesByRequestedTime = severeCasesByRequestedTime(impact.infectionsByRequestedTime);
-  const infections = severeImpact.infectionsByRequestedTime;
+  let infections = severeImpact.infectionsByRequestedTime;
   severeImpact.severeCasesByRequestedTime = severeCasesByRequestedTime(infections);
 
   const impactSevereCases = impact.severeCasesByRequestedTime;
   const sISevereCases = severeImpact.severeCasesByRequestedTime;
   impact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime(data, impactSevereCases);
   severeImpact.hospitalBedsByRequestedTime = hospitalBedsByRequestedTime(data, sISevereCases);
+
+  impact.casesForICUByRequestedTime = casesForICUByRequestedTime(impact.infectionsByRequestedTime);
+  infections = severeImpact.infectionsByRequestedTime;
+  severeImpact.casesForICUByRequestedTime = casesForICUByRequestedTime(infections);
+
+  infections = impact.infectionsByRequestedTime;
+  impact.casesForVentilatorsByRequestedTime = casesForVentilatorsByRequestedTime(infections);
+  infections = severeImpact.infectionsByRequestedTime;
+  severeImpact.casesForVentilatorsByRequestedTime = casesForVentilatorsByRequestedTime(infections);
+
+  infections = impact.infectionsByRequestedTime;
+  impact.dollarsInFlight = dollarsInFlight(data, infections);
+  infections = severeImpact.infectionsByRequestedTime;
+  severeImpact.dollarsInFlight = dollarsInFlight(data, infections);
 
   return {
     data,
