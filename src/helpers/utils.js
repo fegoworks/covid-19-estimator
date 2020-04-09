@@ -14,15 +14,15 @@ export const infectionsByRequestedTime = (data, infected) => {
 
   if (periodType === 'days') {
     unitsPerPeriod = Math.round(period / 3);
-    infections = (infected * 2 ** unitsPerPeriod) / 2;
+    infections = (infected * (2 ** unitsPerPeriod));
   } else if (periodType === 'weeks') {
     days = period * 7;
     unitsPerPeriod = Math.round(days / 3);
-    infections = infected * 2 ** unitsPerPeriod;
+    infections = (infected * (2 ** unitsPerPeriod));
   } else if (periodType === 'months') {
     days = period * 30;
     unitsPerPeriod = Math.round(days / 3);
-    infections = infected * 2 ** unitsPerPeriod;
+    infections = (infected * (2 ** unitsPerPeriod));
   }
   return infections;
 };
