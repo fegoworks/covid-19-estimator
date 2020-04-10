@@ -13,21 +13,21 @@ export const infectionsByRequestedTime = (data, infected) => {
   let unitsPerPeriod;
 
   if (periodType === 'days') {
-    unitsPerPeriod = Math.round(period / 3);
+    unitsPerPeriod = Math.trunc(period / 3);
     infections = (infected * (2 ** unitsPerPeriod));
   } else if (periodType === 'weeks') {
     days = period * 7;
-    unitsPerPeriod = Math.round(days / 3);
+    unitsPerPeriod = Math.trunc(days / 3);
     infections = (infected * (2 ** unitsPerPeriod));
   } else if (periodType === 'months') {
     days = period * 30;
-    unitsPerPeriod = Math.round(days / 3);
+    unitsPerPeriod = Math.trunc(days / 3);
     infections = (infected * (2 ** unitsPerPeriod));
   }
   return infections;
 };
 
-export const severeCasesByRequestedTime = (time) => Math.round(time * 0.15);
+export const severeCasesByRequestedTime = (time) => Math.trunc(time * 0.15);
 
 export const casesForICUByRequestedTime = (time) => time * 0.05;
 
