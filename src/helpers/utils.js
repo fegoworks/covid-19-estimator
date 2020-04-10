@@ -13,28 +13,28 @@ export const infectionsByRequestedTime = (data, infected) => {
   let unitsPerPeriod;
 
   if (periodType === 'days') {
-    unitsPerPeriod = Math.trunc(period / 3);
+    unitsPerPeriod = Math.floor(period / 3);
     infections = (infected * (2 ** unitsPerPeriod));
   } else if (periodType === 'weeks') {
     days = period * 7;
-    unitsPerPeriod = Math.trunc(days / 3);
+    unitsPerPeriod = Math.floor(days / 3);
     infections = (infected * (2 ** unitsPerPeriod));
   } else if (periodType === 'months') {
     days = period * 30;
-    unitsPerPeriod = Math.trunc(days / 3);
+    unitsPerPeriod = Math.floor(days / 3);
     infections = (infected * (2 ** unitsPerPeriod));
   }
   return infections;
 };
 
-export const severeCasesByRequestedTime = (time) => Math.trunc(time * 0.15);
+export const severeCasesByRequestedTime = (time) => Math.floor(time * 0.15);
 
-export const casesForICUByRequestedTime = (time) => Math.trunc(time * 0.05);
+export const casesForICUByRequestedTime = (time) => Math.floor(time * 0.05);
 
-export const casesForVentilatorsByRequestedTime = (time) => Math.trunc(time * 0.02);
+export const casesForVentilatorsByRequestedTime = (time) => Math.floor(time * 0.02);
 
 export const hospitalBedsByRequestedTime = (data, cases) => {
-  const bedsAvailable = Math.trunc(data.totalHospitalBeds * 0.35);
+  const bedsAvailable = Math.floor(data.totalHospitalBeds * 0.35);
   return bedsAvailable - cases;
 };
 
@@ -60,5 +60,5 @@ export const dollarsInFlight = (data, infections) => {
     timeInDays = timeToElapse;
     totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
   }
-  return Math.trunc(totalDollars);
+  return Math.floor(totalDollars);
 };
