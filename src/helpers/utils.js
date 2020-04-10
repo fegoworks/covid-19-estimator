@@ -29,12 +29,12 @@ export const infectionsByRequestedTime = (data, infected) => {
 
 export const severeCasesByRequestedTime = (time) => Math.trunc(time * 0.15);
 
-export const casesForICUByRequestedTime = (time) => time * 0.05;
+export const casesForICUByRequestedTime = (time) => Math.trunc(time * 0.05);
 
-export const casesForVentilatorsByRequestedTime = (time) => time * 0.02;
+export const casesForVentilatorsByRequestedTime = (time) => Math.trunc(time * 0.02);
 
 export const hospitalBedsByRequestedTime = (data, cases) => {
-  const bedsAvailable = data.totalHospitalBeds * 0.35;
+  const bedsAvailable = Math.trunc(data.totalHospitalBeds * 0.35);
   return bedsAvailable - cases;
 };
 
@@ -60,5 +60,5 @@ export const dollarsInFlight = (data, infections) => {
     timeInDays = timeToElapse;
     totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
   }
-  return totalDollars;
+  return Math.trunc(totalDollars);
 };
