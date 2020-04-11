@@ -1,64 +1,26 @@
-/* eslint-disable import/prefer-default-export */
-import Big from 'big.js';
+export const iCases = (data, num) => data.reportedCases * num;
 
-export const infectionsByRequestedTime = (data, infected) => {
-  let infections = null;
-  const {
-    timeToElapse,
-    periodType
-  } = data;
+export const numbersInfected = (data, num) => data.currentlyInfected * num;
 
-  const period = Big(timeToElapse);
-  let days;
-  let unitsPerPeriod;
-
-  if (periodType === 'days') {
-    unitsPerPeriod = Math.floor(period / 3);
-    infections = (infected * (2 ** unitsPerPeriod));
-  } else if (periodType === 'weeks') {
-    days = period * 7;
-    unitsPerPeriod = Math.floor(days / 3);
-    infections = (infected * (2 ** unitsPerPeriod));
-  } else if (periodType === 'months') {
-    days = period * 30;
-    unitsPerPeriod = Math.floor(days / 3);
-    infections = (infected * (2 ** unitsPerPeriod));
-  }
-  return infections;
+export const bedSpaces = (beds, data) => {
+  const bedsAvailable = Math.trunc(beds.totalHospitalBeds * 0.35);
+  const cases = data.severeCasesByRequestedTime;
+  return bedsAvailable - cases;
 };
 
-export const severeCasesByRequestedTime = (time) => Math.trunc(time * 0.15);
+export const infectionsByRequestedTime = (cases, num) => cases.infectionsByRequestedTime * num;
 
-export const casesForICUByRequestedTime = (time) => Math.trunc(time * 0.05);
-
-export const casesForVentilatorsByRequestedTime = (time) => Math.trunc(time * 0.02);
-
-export const hospitalBedsByRequestedTime = (data, cases) => {
-  const bedsAvailable = data.totalHospitalBeds * 0.35;
-  return Math.trunc(bedsAvailable - cases);
-};
-
-export const dollarsInFlight = (data, infections) => {
-  let totalDollars;
-  let timeInDays;
-  const {
-    periodType,
-    timeToElapse
-  } = data;
-  const {
-    avgDailyIncomePopulation,
-    avgDailyIncomeInUSD
-  } = data.region;
-
-  if (periodType === 'weeks') {
-    timeInDays = timeToElapse * 7;
-    totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
-  } else if (periodType === 'months') {
-    timeInDays = timeToElapse * 30;
-    totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
-  } else {
-    timeInDays = timeToElapse;
-    totalDollars = infections * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeInDays;
+export const getPeriod = (periodType, timeToElapse) => {
+  let time = periodType;
+  time = periodType.toLowerCase();
+  switch (time) {
+    case 'days':
+      return timeToElapse;
+    case 'weeks':
+      return timeToElapse * 7;
+    case 'months':
+      return timeToElapse * 30;
+    default:
+      return 'Invalid period type';
   }
-  return Math.floor(totalDollars);
 };
