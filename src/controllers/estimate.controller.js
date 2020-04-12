@@ -1,4 +1,7 @@
+import xml from 'xml2js';
 import estimator from '../estimator';
+
+const builder = new xml.Builder();
 
 class Estimates {
   /**
@@ -9,7 +12,7 @@ class Estimates {
    * @returns {Array} Estimate
    * @member Estimates
    */
-  static async covidEstimate(req, res) {
+  static covidEstimate(req, res) {
     const {
       region,
       periodType,
@@ -42,6 +45,13 @@ class Estimates {
 
     const response = estimator(data);
 
+    if (req.path.includes('xml')) {
+      return res.set('Content-Type', 'text/xml').status(201).send(
+        builder.buildObject({
+          response
+        })
+      );
+    }
     return res.status(201).json({
       data: response.data,
       impact: response.impact,

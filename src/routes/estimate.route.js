@@ -4,8 +4,22 @@ import estimateController from '../controllers/estimate.controller';
 
 const router = express.Router();
 
-router.post('/on-covid-19/',
+router.post(
+  '/on-covid-19/',
   validate.validateBody(validate.schemas.paramSchema),
-  estimateController.covidEstimate);
+  estimateController.covidEstimate
+);
+
+router.post(
+  '/on-covid-19/json',
+  validate.validateBody(validate.schemas.paramSchema),
+  estimateController.covidEstimate
+);
+
+router.post(
+  '/on-covid-19/xml',
+  validate.validateBody(validate.schemas.paramSchema),
+  estimateController.covidEstimate
+);
 
 export default router;
