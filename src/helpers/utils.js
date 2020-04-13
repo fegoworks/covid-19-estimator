@@ -5,9 +5,9 @@ export const iCases = (data, num) => data.reportedCases * num;
 export const numbersInfected = (data, num) => data.currentlyInfected * num;
 
 export const bedSpaces = (beds, data) => {
-  const bedsAvailable = Math.trunc(beds.totalHospitalBeds * 0.35);
+  const bedsAvailable = beds.totalHospitalBeds * 0.35;
   const cases = data.severeCasesByRequestedTime;
-  return bedsAvailable - cases;
+  return Math.trunc(bedsAvailable - cases);
 };
 
 export const infectionsByRequestedTime = (cases, num) => cases.infectionsByRequestedTime * num;
