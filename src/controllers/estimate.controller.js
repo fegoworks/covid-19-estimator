@@ -46,13 +46,14 @@ class Estimates {
     const response = estimator(data);
 
     if (req.path.includes('xml')) {
-      return res.set('Content-Type', 'text/xml').status(201).send(
+      res.header('Content-Type', 'application/xml; charset=UTF-8');
+      return res.status(201).send(
         builder.buildObject({
           response
         })
       );
     }
-    return res.status(201).json({
+    return res.status(201).send({
       data: response.data,
       impact: response.impact,
       severeImpact: response.severeImpact

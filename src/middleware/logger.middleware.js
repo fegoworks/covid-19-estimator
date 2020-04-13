@@ -17,7 +17,7 @@ const requestLogger = (req, res, next) => {
   const message = `${method}\t\t${url}\t\t${statusCode}\t\t${Math.floor(timeInMS)
     .toString()
     .padStart(2, '00')}ms`;
-  const filePath = path.join(__dirname, 'requestLogs.txt');
+  const filePath = path.join(__dirname, '../logs.txt');
 
   saveToFile(message, filePath);
   next();

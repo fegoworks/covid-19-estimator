@@ -13,7 +13,7 @@ class Logs {
    */
   static getLogs(req, res) {
     try {
-      const filePath = path.join(__dirname, 'request_logs.txt');
+      const filePath = path.join(__dirname, '../logs.txt');
       const data = fs.readFileSync(filePath, 'utf8');
       res.header('Content-Type', 'text/plain; charset=UTF-8');
       res.status(200).send(data);
@@ -32,7 +32,7 @@ class Logs {
    */
   static deleteLogs(req, res) {
     try {
-      const filePath = path.join(__dirname, 'requestLogs.txt');
+      const filePath = path.join(__dirname, '../logs.txt');
       fs.unlinkSync(filePath);
       logger(req, res, () => {});
       res.status(201).send({
