@@ -4,6 +4,13 @@ import estimateController from '../controllers/estimate.controller';
 
 const router = express.Router();
 
+router.get('/on-covid-19', (req, res) => {
+  res.status(200).send({
+    status: 'Success',
+    message: 'Welcome, you have reached the Covid 19 Estimator API'
+  });
+});
+
 router.post(
   '/on-covid-19/',
   validate.validateBody(validate.schemas.paramSchema),
