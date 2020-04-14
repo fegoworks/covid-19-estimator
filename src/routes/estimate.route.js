@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/on-covid-19', (req, res) => {
   res.status(200).send({
     status: 'Success',
-    message: 'Welcome to the Covid 19 Estimator API'
+    message: 'Welcome, you have reached the Covid 19 Estimator API'
   });
 });
 
